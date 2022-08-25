@@ -1,13 +1,19 @@
 <template>
-	<h1>Header</h1>
+	<header class="header">
+		<h1>Header</h1>
+	</header>
 </template>
 
 <script>
-export default {
+	export default {
 
-}
+	}
 </script>
 
-<style>
+<style scoped>
+	h1 {
+		text-align: center;
+		font-weight: 700;
 
+	}
 </style>

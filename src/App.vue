@@ -20,7 +20,6 @@
       BlogFooter
     },
     setup() {
-
       return {}
     }
   }
@@ -65,9 +64,11 @@
     color: #000;
     background-color: #f6f6f6;
   }
+
   .shadow{
     box-shadow: 5px 10px 10px rgba(0,0,0,0.05);
   }
+  
   .wrap {
     position: relative;
     display: block;

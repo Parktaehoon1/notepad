@@ -4,6 +4,7 @@
     <BlogInput @additem="addMemo" />
     <BlogList :memodata="memoItemArr" @removeitem="deleteMemo" @updateitem="updateMemo" />
     <BlogFooter @clearitem="clearMemo" />
+    <IntroView @closeintro="hideIntro" v-if="introShow"/> 
   </div>
 </template>
 
@@ -16,12 +17,14 @@
   import BlogInput from "@/components/BlogInput.vue";
   import BlogList from "@/components/BlogList.vue";
   import BlogFooter from "@/components/BlogFooter.vue";
+  import IntroView from "@/components/IntroView.vue";
   export default {
     components: {
       BlogHeader,
       BlogInput,
       BlogList,
-      BlogFooter
+      BlogFooter,
+      IntroView
     },
     setup() {
       const total = ref(0);
@@ -93,12 +96,20 @@
         memoItemArr.splice(0);
       }
 
+      const introShow = ref(true)
+      const hideIntro = () => {
+        introShow.value = false;
+        
+      }
+
       return {
         memoItemArr,
         deleteMemo,
         updateMemo,
         addMemo,
-        clearMemo
+        clearMemo,
+        hideIntro,
+        introShow
       }
     }
   }

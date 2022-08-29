@@ -9,11 +9,12 @@
 
 <script>
 export default {
-	setup(){
+	setup(props, context){
 		const clearAllMemo = () => {
 			// localStorage 에서 내용 전체 삭제
 			// 추후 DB 연동 예정
-			localStorage.clear();
+			// localStorage.clear();
+			context.emit('clearitem')
 		}
 		return{
 			clearAllMemo
@@ -26,7 +27,7 @@ export default {
 	.clear-all-wrap{
 		position: relative;
 		display: block;
-		width: 50%;
+		width: 100%;
 		/* height: 50px; */
 		line-height: 50px;
 		background-color: #fff;

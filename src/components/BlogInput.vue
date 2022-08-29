@@ -8,6 +8,9 @@
 			<span @click="addIcon(1)" class="img2">
 				이미지2
 			</span>
+			<span @click="addIcon(2)" class="img3">
+				이미지2
+			</span>
 
 			<span @click="addItem" class="add-bt">
 				<i class="fas fa-plus add-bt-icon"></i>
@@ -49,6 +52,7 @@
 				console.log(index)
 				newIcon.value = index
 			}
+
 			return {
 				newItem,
 				addItem,
@@ -94,8 +98,9 @@
 		float: right;
 	}
 	.img1:active,
-	.img2:active{
-		outline: 3px solid hotpink;
+	.img2:active,
+	.img3:active{
+		outline: 3px solid red;
 	}
 
 	.img1 {
@@ -115,6 +120,15 @@
 		font-size: 0;
 		cursor: pointer;
 		background: url('@/assets/images/study.png') no-repeat center;
+		background-size: cover;
+	}
+	.img3 {
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		font-size: 0;
+		cursor: pointer;
+		background: url('@/assets/images/stars.png') no-repeat center;
 		background-size: cover;
 	}
 

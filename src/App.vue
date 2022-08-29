@@ -4,7 +4,7 @@
     <BlogInput @additem="addMemo" />
     <BlogList :memodata="memoItemArr" @removeitem="deleteMemo" @updateitem="updateMemo" />
     <BlogFooter @clearitem="clearMemo" />
-    <IntroView @closeintro="hideIntro" v-if="introShow"/> 
+    <IntroView @closeintro="hideIntro" v-if="introShow" />
   </div>
 </template>
 
@@ -37,8 +37,13 @@
           console.log("키값", obj)
           memoItemArr.push(JSON.parse(obj))
         }
-        // 키 값을 이용해서 정렬하기(오름차순)
-        // memoItemArr.sort();
+        // 키값을 이용해서 정렬하기(오름차순)
+        memoItemArr.sort((a, b) => {
+          if (a.id > b.id) return 1;
+          if (a.id === b.id) return 0;
+          if (a.id < b.id) return -1;
+        });
+
       }
       const deleteMemo = (item, index) => {
         console.log(item);
@@ -47,6 +52,12 @@
         localStorage.removeItem(item);
         // 배열에서도 지운다.
         memoItemArr.splice(index, 1);
+
+        memoItemArr.sort((a, b) => {
+          if (a.id > b.id) return 1;
+          if (a.id === b.id) return 0;
+          if (a.id < b.id) return -1;
+        });
       }
       const updateMemo = (item, index) => {
         console.log(item, index)
@@ -59,6 +70,12 @@
         memoItemArr[index].complete = !memoItemArr[index].complete;
         // 다시 set 한다.
         localStorage.setItem(item.id, JSON.stringify(item));
+
+        memoItemArr.sort((a, b) => {
+          if (a.id > b.id) return 1;
+          if (a.id === b.id) return 0;
+          if (a.id < b.id) return -1;
+        });
       }
       const addZero = (n) => {
         return n < 10 ? '0' + n : n;
@@ -74,7 +91,7 @@
         return date.getFullYear().toString() + '/' + addZero(date.getMonth() + 1) + '/' + addZero(date.getDate());
       }
 
-      const iconArr = ['workout.png', 'study.png'];
+      const iconArr = ['workout.png', 'study.png', 'stars.png'];
 
       const addMemo = (item, index) => {
         let memoTemp = {
@@ -84,7 +101,6 @@
           memodate: getCurrentTime(),
           memoicon: iconArr[index]
         };
-        console.log("item", item);
         localStorage.setItem(memoTemp.id, JSON.stringify(memoTemp));
         // 화면갱신을 위한 배열 요소 추가
         memoItemArr.push(memoTemp)
@@ -99,7 +115,7 @@
       const introShow = ref(true)
       const hideIntro = () => {
         introShow.value = false;
-        
+
       }
 
       return {

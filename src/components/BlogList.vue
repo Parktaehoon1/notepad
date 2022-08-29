@@ -69,12 +69,17 @@
 	}
 
 	.info {
+		position: relative;
 		margin-left: auto;
 		font-size: 8px;
 	}
 
 	.icon {
-		display: inline-block;
+		position: absolute;
+		right: 65px;
+		top: 50%;
+		transform: translateY(-50%);
+		display: block;
 		width: 40px;
 		height: 40px;
 		margin-right: 10px;

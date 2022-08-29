@@ -3,7 +3,7 @@
     <BlogHeader />
     <BlogInput @additem="addMemo" />
     <BlogList :memodata="memoItemArr" @removeitem="deleteMemo" @updateitem="updateMemo" />
-    <BlogFooter @clearitem="clearMemo"/>
+    <BlogFooter @clearitem="clearMemo" />
   </div>
 </template>
 
@@ -45,41 +45,52 @@
         // 배열에서도 지운다.
         memoItemArr.splice(index, 1);
       }
-      const updateMemo = (item) => {
-        console.log(item)
+      const updateMemo = (item, index) => {
+        console.log(item, index)
         // localStorage 에서는 Update 메소드를 지원하지 않습니다..ㅠ
         // 찾아서 지우고, 
         localStorage.removeItem(item.id);
         // 변경한다.
-        item.complete = !item.complete;
+        // item.complete = !item.complete;
+
+        memoItemArr[index].complete = !memoItemArr[index].complete;
         // 다시 set 한다.
         localStorage.setItem(item.id, JSON.stringify(item));
       }
-      const addMemo = (item) => {
-        const addZero = (n) => {
-				return n < 10 ? '0' + n : n;
-			}
-			// 현재 시간을 리턴
-			const getCurrentDate = () => {
-				let date = new Date();
-				return date.getFullYear().toString() + addZero(date.getMonth() + 1) + addZero(date.getDate()) +
-					addZero(date.getHours()) + addZero(date.getMinutes()) + addZero(date.getSeconds());
-			}
+      const addZero = (n) => {
+        return n < 10 ? '0' + n : n;
+      }
+      // 현재 시간을 리턴
+      const getCurrentDate = () => {
+        let date = new Date();
+        return date.getFullYear().toString() + addZero(date.getMonth() + 1) + addZero(date.getDate()) +
+          addZero(date.getHours()) + addZero(date.getMinutes()) + addZero(date.getSeconds());
+      }
+      const getCurrentTime = () => {
+        let date = new Date();
+        return date.getFullYear().toString() + '/' + addZero(date.getMonth() + 1) + '/' + addZero(date.getDate());
+      }
+
+      const iconArr = ['workout.png', 'study.png'];
+
+      const addMemo = (item, index) => {
         let memoTemp = {
-						id: getCurrentDate(),
-						complete: false,
-						memotitle: item,
-					}
+          id: getCurrentDate(),
+          complete: false,
+          memotitle: item,
+          memodate: getCurrentTime(),
+          memoicon: iconArr[index]
+        };
         console.log("item", item);
         localStorage.setItem(memoTemp.id, JSON.stringify(memoTemp));
         // 화면갱신을 위한 배열 요소 추가
         memoItemArr.push(memoTemp)
       }
       const clearMemo = () => {
-			// localStorage 에서 내용 전체 삭제
-			// 추후 DB 연동 예정
-			localStorage.clear();
-      memoItemArr.splice(0);
+        // localStorage 에서 내용 전체 삭제
+        // 추후 DB 연동 예정
+        localStorage.clear();
+        memoItemArr.splice(0);
       }
 
       return {

@@ -8,9 +8,15 @@
 
 				<span :class="{memoCompleteTxt:item.complete}">{{item.memotitle}}</span>
 
-				<span class="remove-bt" @click="removeMemo(item.id, index)">
-					<i class="fas fa-trash-alt"></i>
-				</span>
+				<div class="info">
+					<span class="icon"
+						:style="{backgroundImage:'url(' + require(`@/assets/images/${item.memoicon}`) + ')'}"></span>
+					<span class="date">{{item.memodate}}</span>
+					<span class="remove-bt" @click="removeMemo(item.id, index)">
+						<i class="fas fa-trash-alt"></i>
+					</span>
+				</div>
+
 			</li>
 		</ul>
 	</div>
@@ -18,15 +24,15 @@
 
 <script>
 	export default {
-		props:['memodata'],
+		props: ['memodata'],
 		setup(props, context) {
 
 			const removeMemo = (item, index) => {
 				context.emit("removeitem", item, index);
 			}
 
-			const updateMemo = (item) => {
-				context.emit("updateitem", item)
+			const updateMemo = (item, index) => {
+				context.emit("updateitem", item, index)
 			}
 
 			return {
@@ -51,7 +57,7 @@
 
 	.remove-bt {
 		cursor: pointer;
-		margin-left: auto;
+		margin-left: 10px;
 		color: gray;
 	}
 
@@ -61,6 +67,23 @@
 		margin-right: 10px;
 		cursor: pointer;
 	}
+
+	.info {
+		margin-left: auto;
+		font-size: 8px;
+	}
+
+	.icon {
+		display: inline-block;
+		width: 40px;
+		height: 40px;
+		margin-right: 10px;
+		background-size: cover;
+		background-repeat: no-repeat;
+		background-position: center;
+	}
+
+	.date {}
 
 	.memoComplete {
 		color: #b3adad;

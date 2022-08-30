@@ -17,7 +17,7 @@
 			</span>
 		</div>
 		<!-- 안내창 -->
-			<ModalView :show="showModal" v-on:closemodal="showModal=false">
+			<ModalView :show="showModal" @closemodal="showModal=false">
 				<template #header>
 					<h3>안내창</h3>
 				</template>
@@ -33,12 +33,14 @@
 		ref
 	} from 'vue';
 
+	import {useStore} from 'vuex';
 	import ModalView from '@/components/common/ModalVue.vue';
 	export default {
 		components:{
 			ModalView
 		},
-		setup(props, context) {
+		setup() {
+			const store = useStore();
 
 			const newItem = ref('');
 			const newIcon = ref(0);
@@ -52,7 +54,8 @@
 				let checktemp = temp.replace(/\s/g, "");
 				// 앞자리공백 공백 뒷자리공백
 				if (temp !== '' && temp === checktemp) {
-					context.emit('additem', temp, icon); // 에밋으로 어미한테 값 전달 
+					// context.emit('additem', temp, icon); // 에밋으로 어미한테 값 전달 
+					store.commit('ADD_MEMO', {item:temp, index:icon});
 					resetItem();
 				} else {
 					showModal.value = true;

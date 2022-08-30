@@ -1,5 +1,5 @@
 <template>
-	
+
 	<div class="clear-all-wrap">
 		<span class="clear-all-bt" @click="clearAllMemo">Clear All<i class="far fa-trash-alt"></i></span>
 		<span class="copy">&copy; Copyright 2022 by Taehoon</span>
@@ -8,23 +8,25 @@
 </template>
 
 <script>
-export default {
-	setup(props, context){
-		const clearAllMemo = () => {
-			// localStorage 에서 내용 전체 삭제
-			// 추후 DB 연동 예정
-			// localStorage.clear();
-			context.emit('clearitem')
-		}
-		return{
-			clearAllMemo
+	import {
+		useStore
+	} from 'vuex';
+	export default {
+		setup() {
+			const store = useStore();
+			const clearAllMemo = () => {
+				// context.emit('clearitem')
+				store.commit('CLEAR_MEMO');
+			}
+			return {
+				clearAllMemo
+			}
 		}
 	}
-}
 </script>
 
 <style>
-	.clear-all-wrap{
+	.clear-all-wrap {
 		position: relative;
 		display: block;
 		width: 100%;
@@ -35,7 +37,8 @@ export default {
 		margin: 0 auto;
 		border-radius: 5px;
 	}
-	.clear-all-bt{
+
+	.clear-all-bt {
 		position: relative;
 		display: inline-block;
 		width: 80%;
@@ -45,7 +48,8 @@ export default {
 		border-radius: 5px;
 		margin: 10px;
 	}
-	.copy{
+
+	.copy {
 		position: relative;
 		display: block;
 		font-size: 9px;

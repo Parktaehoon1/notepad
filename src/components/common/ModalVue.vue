@@ -26,10 +26,10 @@
 
 <script>
 export default {
-	props: ['show'],
+	props: ['show'],  // 어매의 :show="showModal" 의 값을 가져옴
 	setup(props, context){
 		const closeFn = () => {
-			context.emit('closemodal')
+			context.emit('closemodal') // 어매한테 closemodal을 이벤트이름을 준다
 		}
 		return{
 			closeFn

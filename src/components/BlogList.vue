@@ -1,13 +1,13 @@
 <template>
 	<div class="list-wrap">
-		<ul>
+
+		<TransitionGroup name="list" tag="ul">
+			<!-- <ul> -->
 			<!-- v-for in :key -->
 			<li v-for="(item, index) in memodata" :key="index" class="shadow">
 				<i class="far fa-check-circle check-bt" @click="updateMemo(item, index)"
 					:class="{memoComplete:item.complete}"></i>
-
 				<span :class="{memoCompleteTxt:item.complete}">{{item.memotitle}}</span>
-
 				<div class="info">
 					<span class="icon"
 						:style="{backgroundImage:'url(' + require(`@/assets/images/${item.memoicon}`) + ')'}"></span>
@@ -16,9 +16,11 @@
 						<i class="fas fa-trash-alt"></i>
 					</span>
 				</div>
-
 			</li>
-		</ul>
+			<!-- </ul> -->
+		</TransitionGroup>
+
+
 	</div>
 </template>
 
@@ -97,5 +99,16 @@
 	.memoCompleteTxt {
 		color: #b3adad;
 		text-decoration: line-through;
+	}
+
+	.list-enter-active,
+	.list-leave-active {
+		transition: all 0.5s ease;
+	}
+
+	.list-enter-from,
+	.list-leave-to {
+		opacity: 0;
+		transform: translateX(30px);
 	}
 </style>

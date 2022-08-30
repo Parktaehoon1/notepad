@@ -9,13 +9,22 @@
 				이미지2
 			</span>
 			<span @click="addIcon(2)" class="img3">
-				이미지2
+				이미지3
 			</span>
 
 			<span @click="addItem" class="add-bt">
 				<i class="fas fa-plus add-bt-icon"></i>
 			</span>
 		</div>
+		<!-- 안내창 -->
+			<ModalView :show="showModal" v-on:closemodal="showModal=false">
+				<template #header>
+					<h3>안내창</h3>
+				</template>
+				<template #body>
+					<h2>내용을 작성하여주세요.</h2>
+				</template>
+			</ModalView> <!--slot을 사용하려면 일캐해야됨 -->
 	</div>
 </template>
 
@@ -24,11 +33,16 @@
 		ref
 	} from 'vue';
 
+	import ModalView from '@/components/common/ModalVue.vue';
 	export default {
+		components:{
+			ModalView
+		},
 		setup(props, context) {
 
 			const newItem = ref('');
 			const newIcon = ref(0);
+			const showModal = ref(false);
 
 			const addItem = () => {
 				let temp = newItem.value;
@@ -41,7 +55,7 @@
 					context.emit('additem', temp, icon); // 에밋으로 어미한테 값 전달 
 					resetItem();
 				} else {
-					alert('공백쳤음');
+					showModal.value = true;
 				}
 			}
 			// 내용 재설정
@@ -56,7 +70,8 @@
 			return {
 				newItem,
 				addItem,
-				addIcon
+				addIcon,
+				showModal
 			}
 		}
 	}

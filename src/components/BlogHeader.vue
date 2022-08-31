@@ -13,7 +13,7 @@
 			const store = useStore();
 			title.value = store.state.headerText;
 			return{
-				title,store
+				title
 			}
 		}
 	}

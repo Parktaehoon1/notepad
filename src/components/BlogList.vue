@@ -8,6 +8,7 @@
 				<i class="far fa-check-circle check-bt" @click="updateMemo(item, index)"
 					:class="{memoComplete:item.complete}"></i>
 				<span :class="{memoCompleteTxt:item.complete}">{{item.memotitle}}</span>
+				
 				<div class="info">
 					<span class="icon"
 						:style="{backgroundImage:'url(' + require(`@/assets/images/${item.memoicon}`) + ')'}"></span>

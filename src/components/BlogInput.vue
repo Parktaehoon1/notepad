@@ -57,6 +57,7 @@
 					// context.emit('additem', temp, icon); // 에밋으로 어미한테 값 전달 
 					// store.commit('ADD_MEMO', {item:temp, index:icon});
 					store.dispatch('fetchAddMemo', {item:temp, index:icon});
+
 					resetItem();
 				} else {
 					showModal.value = true;
@@ -67,7 +68,6 @@
 				newItem.value = '';
 			}
 			const addIcon = (index) => {
-				console.log(index)
 				newIcon.value = index
 			}
 

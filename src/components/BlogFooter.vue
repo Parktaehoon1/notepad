@@ -16,7 +16,8 @@
 			const store = useStore();
 			const clearAllMemo = () => {
 				// context.emit('clearitem')
-				store.commit('CLEAR_MEMO');
+				// store.commit('CLEAR_MEMO');
+				store.dispatch('fetchClearMemo');
 			}
 			return {
 				clearAllMemo

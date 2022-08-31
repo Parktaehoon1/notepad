@@ -55,7 +55,8 @@
 				// 앞자리공백 공백 뒷자리공백
 				if (temp !== '' && temp === checktemp) {
 					// context.emit('additem', temp, icon); // 에밋으로 어미한테 값 전달 
-					store.commit('ADD_MEMO', {item:temp, index:icon});
+					// store.commit('ADD_MEMO', {item:temp, index:icon});
+					store.dispatch('fetchAddMemo', {item:temp, index:icon});
 					resetItem();
 				} else {
 					showModal.value = true;

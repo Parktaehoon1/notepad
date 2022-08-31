@@ -10,8 +10,7 @@ const storage = {
 		if (total > 0) {
 			for (let i = 0; i < total; i++) {
 				let obj = localStorage.getItem(localStorage.key(i));
-				console.log("키값", obj)
-				arr.push(JSON.parse(obj))
+				arr.push(JSON.parse(obj));
 			}
 			// 키값을 이용해서 정렬하기(오름차순)
 			arr.sort((a, b) => {
@@ -45,7 +44,21 @@ export default createStore({
 		memoItemArr: storage.getData(),
 		iconArr: ['workout.png', 'study.png', 'stars.png']
 	},
-	actions: {},
+	// 외부데이터 연동
+	actions: {
+        fetchAddMemo(context, obj) {  // 이름은 통상적으로 앞에 fetch 붙이기
+            context.commit('ADD_MEMO', obj);// ADD_MEMO 로 commit 날리라 
+        },
+        fetchDeleteMemo({commit},obj) {
+            commit('DELETE_MEMO', obj);
+        },
+        fetchUpdateMemo({commit},obj) {
+           commit('UPDATE_MEMO', obj);
+        },
+        fetchClearMemo({commit}) {
+           commit('CLEAR_MEMO');
+        },
+	},
 	mutations: {
 		// 아이템 추가 {item, index}
 		ADD_MEMO(state, payload) {
@@ -96,5 +109,12 @@ export default createStore({
 			state.memoItemArr.splice(0);
 		}
 	},
-	getters: {}
+	// state 의 값을 호출
+	// computed 에서 감시
+	getters: {
+		getMemoArr(state){
+			console.log("무슨스테이트",state); // 실시간 감시 이루어짐
+			return state.memoItemArr;
+		}
+	}
 });

@@ -26,7 +26,7 @@
 
 <script>
 	import {
-		ref
+    computed,
 	} from 'vue';
 	import {
 		useStore
@@ -35,18 +35,18 @@
 		setup() {
 			// vuex사용
 			const store = useStore();
-			const items = ref([]);
-			items.value = store.state.memoItemArr
-
-
+			const items = computed( () => store.getters.getMemoArr);
+			
 			const removeMemo = (item, index) => {
 				// context.emit("removeitem", item, index);
-				store.commit('DELETE_MEMO', {item,index})
+				// store.commit('DELETE_MEMO', {item,index})
+				store.dispatch('fetchDeleteMemo', {item,index})
 			}
-
+				// dispatch 옆에는 actions 이름이 들어옴
 			const updateMemo = (item, index) => {
 				// context.emit("updateitem", item, index)
-				store.commit('UPDATE_MEMO', {item,index})
+				// store.commit('UPDATE_MEMO', {item,index})
+				store.dispatch('fetchUpdateMemo', {item,index})
 			}
 
 			return {

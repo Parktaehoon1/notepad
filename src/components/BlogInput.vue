@@ -41,7 +41,6 @@
 		},
 		setup() {
 			const store = useStore();
-
 			const newItem = ref('');
 			const newIcon = ref(0);
 			const showModal = ref(false);
@@ -70,6 +69,8 @@
 			const addIcon = (index) => {
 				newIcon.value = index
 			}
+						
+
 
 			return {
 				newItem,

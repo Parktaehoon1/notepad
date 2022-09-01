@@ -1,4 +1,6 @@
 // 데이터를 불러오는 내용
+// arr이라는 배열안에 arr.push(JSON.parse(obj))를 한다. 여기서 obj는 키값을 읽는다. 
+// 즉 storage.getData() 는 localStorage의 키값이 저장되고이씀
 const storage = {
     getData() {
         const arr = [];
@@ -16,7 +18,6 @@ const storage = {
                 if (a.id < b.id) return -1;
             });
         }
-
         return arr;
     }
 }
@@ -36,15 +37,14 @@ const timeUtil = {
     },
     getCurrentTime() {
         let date = new Date();
-        return date.getFullYear().toString() + '/' + this.addZero(date.getMonth() + 1) + '/' + this.addZero(date.getDate()) + '/' +
-            this.addZero(date.getHours()) + ':' + this.addZero(date.getMinutes());
+        return date.getFullYear().toString() + '/' + this.addZero(date.getMonth() + 1) + '/' + this.addZero(date.getDate());
     }
 }
 
 const state = {
-    headerText: 'My Diary Memo',
+    headerText: 'MY NOTEPAD',
     memoItemArr: storage.getData(),
-    iconArr: ['dog1.png', 'dog2.png', 'str.png']
+    iconArr: ['workout.png', 'study.png', 'stars.png']
 };
 
 const actions = {
@@ -52,27 +52,22 @@ const actions = {
         // 서버에 주소로 접근하여서 자료를 push 한다.
         // push 하고 나서 정상적으로 추가되었다면
         // 아래의 명령을 실행한다.
+        // context는 {commit}으로 대체할수있다. 
         context.commit("ADD_MEMO", obj);
     },
-    fetchDeleteMemo({
-        commit
-    }, obj) {
+    fetchDeleteMemo({ commit }, obj) {
         // 서버에 주소로 접근해서 데이터를 DELETE.
         // DELETE 가 성공했다면
         // 아래를 실행한다.
         commit("DELETE_MEMO", obj);
     },
-    fetchUpdateMemo({
-        commit
-    }, obj) {
+    fetchUpdateMemo({ commit }, obj) {
         // 서버의 주소로 접근해서 FETCH 한다.
         // 정상적으로 처리되었다면
         // 아래를 실행한다.
         commit("UPDATE_MEMO", obj);
     },
-    fetchClearMemo({
-        commit
-    }) {
+    fetchClearMemo({ commit }) {
         // 서버의 주소로 접근해서 DELETE 한다.
         // 정상적으로 처리되었다면
         // 아래를 실행한다.
@@ -80,8 +75,10 @@ const actions = {
     },
 }
 const mutations = {
+    // mutations를 실행하기위해서는 commit() 으로 동작시킨다. 
     // 아이템 추가 {item, index}
     ADD_MEMO(state, payload) {
+        // payload는 객체임
         // json 저장 문자열
         ///{completed:false, title:메모내용, icon:파일명 ....}
         // 아이콘 관련 처리
@@ -143,6 +140,9 @@ const getters = {
     getMemoArr(state) {
         // 조건에 따라서 다른 결과물을 돌려준다.
         return state.memoItemArr;
+    },
+    getHeaderTitle(state){
+        return state.headerText
     }
 };
 

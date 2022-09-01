@@ -1,6 +1,7 @@
 <template>
   <div class="wrap">
     <BlogHeader />
+    <BlogTitle />
     <BlogInput />
     <BlogList />
     <BlogFooter />
@@ -11,6 +12,7 @@
 <script>
   import {ref} from 'vue';
   import BlogHeader from "@/components/BlogHeader.vue";
+  import BlogTitle from "@/components/BlogTitle.vue";
   import BlogInput from "@/components/BlogInput.vue";
   import BlogList from "@/components/BlogList.vue";
   import BlogFooter from "@/components/BlogFooter.vue";
@@ -18,6 +20,7 @@
   export default {
     components: {
       BlogHeader,
+      BlogTitle,
       BlogInput,
       BlogList,
       BlogFooter,
@@ -40,6 +43,7 @@
 <style>
   @charset 'utf-8';
   @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&family=Roboto:wght@100;300;400;500;700;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Qwitcher+Grypen:wght@700&display=swap');
 
   * {
     margin: 0;
@@ -68,7 +72,7 @@
   }
 
   body {
-    font-family: 'Roboto', 'Noto Sans KR', sans-serif;
+    font-family: 'Roboto', 'Noto Sans KR', 'Qwitcher Grypen', sans-serif;
     font-size: 14px;
     font-weight: 400;
     line-height: 1.2;

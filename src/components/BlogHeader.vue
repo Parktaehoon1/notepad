@@ -11,7 +11,8 @@
 		setup(){
 			const title = ref('');
 			const store = useStore();
-			title.value = store.state.headerText;
+			title.value = store.getters.getHeaderTitle;
+
 			return{
 				title
 			}
@@ -22,7 +23,9 @@
 <style scoped>
 	h1 {
 		text-align: center;
-		font-weight: 700;
-
+		font-size: 50px;
+		font-weight: 400;
+		margin: 20px 0;
+		font-family: 'Qwitcher Grypen';
 	}
 </style>

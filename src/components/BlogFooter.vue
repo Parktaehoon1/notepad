@@ -49,7 +49,6 @@
 		border-radius: 5px;
 		margin: 10px;
 	}
-
 	.copy {
 		position: relative;
 		display: block;

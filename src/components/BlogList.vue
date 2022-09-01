@@ -42,6 +42,7 @@
 				// context.emit("removeitem", item, index);
 				// store.commit('DELETE_MEMO', {item,index})
 				store.dispatch('fetchDeleteMemo', {item,index})
+				// localStorage에서 받아는거라 dispatch하고 action의 메서드네임
 			}
 				// dispatch 옆에는 actions 이름이 들어옴
 			const updateMemo = (item, index) => {

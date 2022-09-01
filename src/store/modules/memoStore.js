@@ -20,8 +20,6 @@ const storage = {
         return arr;
     }
 }
-// 객체 데이터 불러들임
-
 
 const timeUtil = {
     // 현재 시간값을 계산해서 중복이 되지 않는 값을 처리한다.
@@ -42,13 +40,11 @@ const timeUtil = {
             this.addZero(date.getHours()) + ':' + this.addZero(date.getMinutes());
     }
 }
-// 시간 요소
-
 
 const state = {
     headerText: 'My Diary Memo',
     memoItemArr: storage.getData(),
-    iconArr: ['workout.png', 'study.png', 'stars.png']
+    iconArr: ['dog1.png', 'dog2.png', 'str.png']
 };
 
 const actions = {

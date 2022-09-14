@@ -53,6 +53,9 @@ const actions = {
         // push 하고 나서 정상적으로 추가되었다면
         // 아래의 명령을 실행한다.
         // context는 {commit}으로 대체할수있다. 
+        console.log('context :', context);
+        console.log('obj :', obj);
+
         context.commit("ADD_MEMO", obj);
     },
     fetchDeleteMemo({ commit }, obj) {
@@ -60,6 +63,7 @@ const actions = {
         // DELETE 가 성공했다면
         // 아래를 실행한다.
         commit("DELETE_MEMO", obj);
+
     },
     fetchUpdateMemo({ commit }, obj) {
         // 서버의 주소로 접근해서 FETCH 한다.
@@ -78,6 +82,8 @@ const mutations = {
     // mutations를 실행하기위해서는 commit() 으로 동작시킨다. 
     // 아이템 추가 {item, index}
     ADD_MEMO(state, payload) {
+        console.log("payload", payload)
+        console.log("state", state)
         // payload는 객체임
         // json 저장 문자열
         ///{completed:false, title:메모내용, icon:파일명 ....}
@@ -143,6 +149,9 @@ const getters = {
     },
     getHeaderTitle(state){
         return state.headerText
+    },
+    getMemoCount(state){
+        return state.memoItemArr.length;
     }
 };
 

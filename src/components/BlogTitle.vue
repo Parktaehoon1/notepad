@@ -1,6 +1,5 @@
 <template>
     <div class="title" v-on:mouseover="mouseover" v-on:mouseleave="mouseleave">
-        <p class="message">Hello{{ message }}</p>
         <p class="title-task">
             You've got
             <span class="title-task-total">{{ taskTotal }}</span> tasks today.
@@ -9,6 +8,12 @@
 </template>
 
 <script>
+    import {
+        computed
+    } from 'vue';
+    import {
+        useStore
+    } from 'vuex';
     export default {
         methods: {
             mouseover: function () {
@@ -19,9 +24,11 @@
             }
         },
         setup() {
+            const store = useStore()
+            const taskTotal = computed(() => store.getters.getMemoCount)
             return {
                 message: "User.",
-                taskTotal: 5,
+                taskTotal,
                 disabled: false,
 
             };
@@ -68,17 +75,14 @@
     @keyframes shake-box {
         0% {
             transform: translateX(0px);
-            color: red;
         }
 
         50% {
             transform: translateX(20px);
-            color: blue;
         }
 
         100% {
             transform: translateX(0px);
-            color: yellow;
         }
     }
 </style>

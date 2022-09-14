@@ -20,12 +20,13 @@
   export default {
     components: {
       BlogHeader,
-      BlogTitle,
+      BlogTitle, 
       BlogInput,
       BlogList,
       BlogFooter,
       IntroView
     },
+    
     setup() {
       // 첫 화면(introView) 보여질 여부
       const introShow = ref(false)
@@ -37,6 +38,7 @@
         introShow
       }
     }
+    
   }
 </script>
 

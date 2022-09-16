@@ -1,5 +1,6 @@
 <template>
   <div class="wrap">
+    
     <BlogHeader />
     <BlogTitle />
     <BlogInput />

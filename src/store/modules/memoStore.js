@@ -99,6 +99,7 @@ const mutations = {
         localStorage.setItem(memoTemp.id, JSON.stringify(memoTemp));
         // 화면갱신을 위한 배열 요소 추가
         state.memoItemArr.push(memoTemp);
+
     },
     // 아이템 삭제 {item, index}
     DELETE_MEMO(state, payload) {

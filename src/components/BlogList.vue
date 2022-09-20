@@ -27,7 +27,7 @@
 
 <script>
 	import {
-    computed,
+    computed
 	} from 'vue';
 	import {
 		useStore
@@ -36,6 +36,7 @@
 		setup() {
 			// vuex사용
 			const store = useStore();
+			store.dispatch('fetchReadMemo');
 			const items = computed( () => store.getters.getMemoArr);
 			
 			const removeMemo = (item, index) => {

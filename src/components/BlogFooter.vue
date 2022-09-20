@@ -33,7 +33,6 @@
 		width: 100%;
 		/* height: 50px; */
 		line-height: 50px;
-		background-color: #fff;
 		text-align: center;
 		margin: 0 auto;
 		border-radius: 5px;
@@ -45,9 +44,15 @@
 		width: 80%;
 		height: 50px;
 		cursor: pointer;
-		border: 1px solid red;
+		color: #fff;
+		border: 1px solid #fff;
+		background: #62acde;
 		border-radius: 5px;
 		margin: 10px;
+	}
+
+	.far{
+		margin-left: 20px;
 	}
 	.copy {
 		position: relative;

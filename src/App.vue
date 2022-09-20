@@ -1,17 +1,22 @@
 <template>
-  <div class="wrap">
-    
-    <BlogHeader />
-    <BlogTitle />
-    <BlogInput />
-    <BlogList />
-    <BlogFooter />
-    <IntroView @closeintro="hideIntro" v-if="introShow" />
+  <div class="iphone-container">
+    <div class="wrap">
+
+      <BlogHeader />
+      <BlogTitle />
+      <BlogInput />
+      <BlogList />
+      <BlogFooter />
+      <IntroView @closeintro="hideIntro" v-if="introShow" />
+
+    </div>
   </div>
 </template>
 
 <script>
-  import {ref} from 'vue';
+  import {
+    ref
+  } from 'vue';
   import BlogHeader from "@/components/BlogHeader.vue";
   import BlogTitle from "@/components/BlogTitle.vue";
   import BlogInput from "@/components/BlogInput.vue";
@@ -21,13 +26,13 @@
   export default {
     components: {
       BlogHeader,
-      BlogTitle, 
+      BlogTitle,
       BlogInput,
       BlogList,
       BlogFooter,
       IntroView
     },
-    
+
     setup() {
       // 첫 화면(introView) 보여질 여부
       const introShow = ref(false)
@@ -39,7 +44,7 @@
         introShow
       }
     }
-    
+
   }
 </script>
 
@@ -88,10 +93,23 @@
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.05);
   }
 
+  .iphone-container{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display:block;
+    width: 50%;
+    height: 100%;
+    background: url('@/assets/images/iphone.png') no-repeat center;
+    background-size: contain;
+  }
+
   .wrap {
     position: relative;
     display: block;
-    width: 90%;
-    margin: 0 auto;
+    width: 40%;
+    height: 100%;
+    margin: 50px auto;
   }
 </style>

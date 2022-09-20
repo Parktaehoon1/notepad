@@ -1,26 +1,27 @@
+import axios from "axios";
 // 데이터를 불러오는 내용
 // arr이라는 배열안에 arr.push(JSON.parse(obj))를 한다. 여기서 obj는 키값을 읽는다. 
 // 즉 storage.getData() 는 localStorage의 키값이 저장되고이씀
-const storage = {
-    getData() {
-        const arr = [];
-        const total = localStorage.length;
-        if (total > 0) {
-            for (let i = 0; i < total; i++) {
-                // 추후 DB 연동 예정
-                let obj = localStorage.getItem(localStorage.key(i));
-                arr.push(JSON.parse(obj));
-            }
-            // 키값을 이용해서 정렬하기(오름차순)
-            arr.sort((a, b) => {
-                if (a.id > b.id) return 1;
-                if (a.id === b.id) return 0;
-                if (a.id < b.id) return -1;
-            });
-        }
-        return arr;
-    }
-}
+// const storage = {
+//     getData() {
+//         const arr = [];
+//         const total = localStorage.length;
+//         if (total > 0) {
+//             for (let i = 0; i < total; i++) {
+//                 // 추후 DB 연동 예정
+//                 let obj = localStorage.getItem(localStorage.key(i));
+//                 arr.push(JSON.parse(obj));
+//             }
+//             // 키값을 이용해서 정렬하기(오름차순)
+//             arr.sort((a, b) => {
+//                 if (a.id > b.id) return 1;
+//                 if (a.id === b.id) return 0;
+//                 if (a.id < b.id) return -1;
+//             });
+//         }
+//         return arr;
+//     }
+// }
 
 const timeUtil = {
     // 현재 시간값을 계산해서 중복이 되지 않는 값을 처리한다.
@@ -43,35 +44,67 @@ const timeUtil = {
 
 const state = {
     headerText: 'MY NOTEPAD',
-    memoItemArr: storage.getData(),
+    // memoItemArr: storage.getData(),
+    memoItemArr: [],
     iconArr: ['workout.png', 'study.png', 'stars.png']
 };
 
 const actions = {
+    fetchReadMemo({commit}) {
+        axios.get('http://parktaehoon.dothome.co.kr/page-miniblog/read.php')
+            .then(res => {
+                // console.log(res)
+                console.log(res.data)
+                commit("READ_MEMO", res.data.result)
+            })
+            .catch(err => {
+                console.log(err)
+            })
+    },
     fetchAddMemo(context, obj) {
         // 서버에 주소로 접근하여서 자료를 push 한다.
         // push 하고 나서 정상적으로 추가되었다면
         // 아래의 명령을 실행한다.
         // context는 {commit}으로 대체할수있다. 
-        console.log('context :', context);
-        console.log('obj :', obj);
+        let addData = {
+            user: timeUtil.getCurrentDate(),
+            title: obj.item,
+            date: timeUtil.getCurrentTime(),
+            icon: state.iconArr[obj.index]
+        }
 
-        context.commit("ADD_MEMO", obj);
+        axios.get(`http://parktaehoon.dothome.co.kr/page-miniblog/write.php?user=${addData.user}&title=${addData.title}&date=${addData.date}&icon=${addData.icon}`)
+            .then(response => {
+                //   console.log(response.data);
+                if (response.data.result == 1) {
+                    console.log("목록가져오기")
+                    context.commit("ADD_MEMO", addData);
+                } else {
+                    console.log("서버에러")
+                }
+            })
+            .catch(err => console.log(err))
     },
-    fetchDeleteMemo({ commit }, obj) {
+    fetchDeleteMemo({
+        commit
+    }, obj) {
         // 서버에 주소로 접근해서 데이터를 DELETE.
         // DELETE 가 성공했다면
         // 아래를 실행한다.
         commit("DELETE_MEMO", obj);
 
     },
-    fetchUpdateMemo({ commit }, obj) {
+    fetchUpdateMemo({
+        commit
+    }, obj) {
         // 서버의 주소로 접근해서 FETCH 한다.
         // 정상적으로 처리되었다면
         // 아래를 실행한다.
         commit("UPDATE_MEMO", obj);
     },
-    fetchClearMemo({ commit }) {
+    fetchClearMemo({
+        commit
+    }) {
         // 서버의 주소로 접근해서 DELETE 한다.
         // 정상적으로 처리되었다면
         // 아래를 실행한다.
@@ -79,26 +112,38 @@ const actions = {
     },
 }
 const mutations = {
+    // 목록읽기
+    READ_MEMO(state, payload) {
+        state.memoItemArr = payload;
+    },
     // mutations를 실행하기위해서는 commit() 으로 동작시킨다. 
     // 아이템 추가 {item, index}
     ADD_MEMO(state, payload) {
-        console.log("payload", payload)
-        console.log("state", state)
         // payload는 객체임
         // json 저장 문자열
         ///{completed:false, title:메모내용, icon:파일명 ....}
         // 아이콘 관련 처리
-        let memoTemp = {
-            id: timeUtil.getCurrentDate(),
-            complete: false,
-            memotitle: payload.item,
-            memodate: timeUtil.getCurrentTime(),
-            memoicon: state.iconArr[payload.index]
-        };
+        // let memoTemp = {
+        //     id: timeUtil.getCurrentDate(),
+        //     complete: false,
+        //     memotitle: payload.item,
+        //     memodate: timeUtil.getCurrentTime(),
+        //     memoicon: state.iconArr[payload.index]
+        // };
         // 추후 실제 DB 연동 예정
-        localStorage.setItem(memoTemp.id, JSON.stringify(memoTemp));
+        // localStorage.setItem(memoTemp.id, JSON.stringify(memoTemp));
         // 화면갱신을 위한 배열 요소 추가
-        state.memoItemArr.push(memoTemp);
+        // state.memoItemArr.push(memoTemp);
+
+        // axios를 이용해서 추가된 데이터의 정보를 가지고 와서 목록 1개를 추가한다.
+        axios.get(`http://parktaehoon.dothome.co.kr/page-miniblog/get.php?user=${payload.user}`)
+        .then(response => {
+            console.log("입력완료",response.data.result);
+            // state.memoItemArr.push()
+            state.memoItemArr.push(response.data.result[0])
+
+        })
+        .catch(err => console.log(err))
 
     },
     // 아이템 삭제 {item, index}
@@ -145,13 +190,14 @@ const mutations = {
 };
 const getters = {
     getMemoArr(state) {
+        console.log(state.memoItemArr);
         // 조건에 따라서 다른 결과물을 돌려준다.
         return state.memoItemArr;
     },
-    getHeaderTitle(state){
+    getHeaderTitle(state) {
         return state.headerText
     },
-    getMemoCount(state){
+    getMemoCount(state) {
         return state.memoItemArr.length;
     }
 };

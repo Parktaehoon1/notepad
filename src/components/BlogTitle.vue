@@ -1,6 +1,9 @@
 <template>
     <div class="title" v-on:mouseover="mouseover" v-on:mouseleave="mouseleave">
+        <div>
         <p class="sayhello">Good Morning</p>
+        </div>
+        
         <p class="title-task">
             You've got
             <span class="title-task-total">{{ taskTotal }}</span> tasks today.
@@ -19,6 +22,7 @@
         setup() {
             const store = useStore()
             const taskTotal = computed(() => store.getters.getMemoCount)
+
             return {
                 taskTotal,
             };
@@ -34,12 +38,14 @@
         position: relative;
         display: block;
     }
-    .sayhello{
+
+    .sayhello {
         font-size: 30px;
         font-weight: 500;
         font-family: 'Qwitcher Grypen';
         color: #333;
     }
+
     .title-task {
         font-size: 30px;
         font-weight: 500;
@@ -53,6 +59,4 @@
         font-family: 'Qwitcher Grypen';
         color: #62acde;
     }
-
-
 </style>

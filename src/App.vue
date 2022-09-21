@@ -1,7 +1,5 @@
 <template>
-  <div class="iphone-container">
     <div class="wrap">
-
       <BlogHeader />
       <BlogTitle />
       <BlogInput />
@@ -10,7 +8,6 @@
       <IntroView @closeintro="hideIntro" v-if="introShow" />
 
     </div>
-  </div>
 </template>
 
 <script>
@@ -86,30 +83,27 @@
     line-height: 1.2;
     letter-spacing: -0.64;
     color: #000;
-    background-color: #f6f6f6;
   }
 
   .shadow {
     box-shadow: 5px 10px 10px rgba(0, 0, 0, 0.05);
   }
 
-  .iphone-container{
-    position: fixed;
+  .wrap {
+    position: absolute;
     left: 50%;
     top: 50%;
-    transform: translate(-50%, -50%);
-    display:block;
-    width: 50%;
-    height: 100%;
-    background: url('@/assets/images/iphone.png') no-repeat center;
-    background-size: contain;
-  }
-
-  .wrap {
-    position: relative;
+    transform: translate(-50%,-50%);
     display: block;
-    width: 40%;
-    height: 100%;
-    margin: 50px auto;
-  }
+    width: 80%;
+    height: 800px;
+    margin: 0 auto;
+    padding: 20px;
+    background: url('./assets/images/background.jpg');
+    border: 1px solid #fff;
+    border-radius: 10px;
+    box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px, rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+}
+
+
 </style>

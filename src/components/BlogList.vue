@@ -1,17 +1,13 @@
 <template>
 	<div class="list-wrap">
-
 		<TransitionGroup name="list" tag="ul">
 			<!-- <ul> -->
 			<!-- v-for in :key -->
 			<li v-for="(item, index) in items" :key="index" class="shadow">
-				<i class="far fa-check-circle check-bt" @click="updateMemo(item, index)"
-					:class="{memoComplete:item.complete}"></i>
+				<i class="far fa-check-circle check-bt" @click="updateMemo(item, index)" :class="{memoComplete:item.complete}"></i>
 				<span :class="{memoCompleteTxt:item.complete}">{{item.memotitle}}</span>
-				
 				<div class="info">
-					<span class="icon"
-						:style="{backgroundImage:'url(' + require(`@/assets/images/${item.memoicon}`) + ')'}"></span>
+					<span class="icon" :style="{backgroundImage:'url(' + require(`@/assets/images/${item.memoicon}`) + ')'}"></span>
 					<span class="date">{{item.memodate}}</span>
 					<span class="remove-bt" @click="removeMemo(item.id, index)">
 						<i class="fas fa-trash-alt"></i>
@@ -39,10 +35,11 @@
 			store.dispatch('fetchReadMemo');
 			const items = computed( () => store.getters.getMemoArr);
 			
-			const removeMemo = (item, index) => {
+			const removeMemo = (id, index) => {
 				// context.emit("removeitem", item, index);
 				// store.commit('DELETE_MEMO', {item,index})
-				store.dispatch('fetchDeleteMemo', {item,index})
+				// console.log('삭제버튼', id);
+				store.dispatch('fetchDeleteMemo', {id,index})
 				// localStorage에서 받아는거라 dispatch하고 action의 메서드네임
 			}
 				// dispatch 옆에는 actions 이름이 들어옴

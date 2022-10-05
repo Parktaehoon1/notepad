@@ -1,4 +1,5 @@
 <template>
+  <ModalView />
   <div class="wrap">
     <BlogHeader />
     <BlogTitle />
@@ -17,6 +18,7 @@ import BlogInput from "@/components/BlogInput.vue";
 import BlogList from "@/components/BlogList.vue";
 import BlogFooter from "@/components/BlogFooter.vue";
 import IntroView from "@/components/IntroView.vue";
+import ModalView from "@/components/ModalView.vue";
 export default {
   components: {
     BlogHeader,
@@ -25,6 +27,7 @@ export default {
     BlogList,
     BlogFooter,
     IntroView,
+    ModalView,
   },
 
   setup() {
